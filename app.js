@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
-  res.send("Election Result Tracker");
+  res.send("Election Result Tracker API");
 });
 
 // ?route
