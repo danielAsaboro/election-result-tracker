@@ -1,58 +1,59 @@
 import { Schema, model } from "mongoose";
-import { randomUUID } from 'crypto';
+import { randomUUID } from "crypto";
 import bcrypt from "bcrypt";
-import Auth from '../auth.js';
+import jwt from "jsonwebtoken";
+// import Auth from "../auth.js";
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     _id: {
-        type: Schema.Types.UUID,
-        default: () => randomUUID(),
+      type: Schema.Types.UUID,
+      default: () => randomUUID(),
     },
     firstName: {
-        type: String,
+      type: String,
     },
     lastName: {
-        type: String,
+      type: String,
     },
     sex: {
-        type: String,
-        enum: {
-            values: ["male", "female"],
-            message: "{VALUES} isnt allowed",
-        }
+      type: String,
+      enum: {
+        values: ["male", "female"],
+        message: "{VALUES} isnt allowed",
+      },
     },
     email: {
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      required: true,
+      unique: true,
     },
     prefix: {
-        type: String,
-
+      type: String,
     },
     suffix: {
-        type: String,
-
+      type: String,
     },
     role: {
-        type: Number,
-        default: 1984,
-        required: true
+      type: Number,
+      default: 1984,
+      required: true,
     },
     authType: {
-        type: String,
-        enum: ['PASSWORD', 'FACEBOOK_OAUTH', 'GOOGLE_OAUTH'],
-        default: 'PASSWORD',
-        select: false
+      type: String,
+      enum: ["PASSWORD", "FACEBOOK_OAUTH", "GOOGLE_OAUTH"],
+      default: "PASSWORD",
+      select: false,
     },
     googleId: {
-        type: String,
+      type: String,
     },
     avatar: {
-        type: String,
+      type: String,
     },
+  },
+  { timestamps: true }
+);
 
-}, { timestamps: true, });
-
-const User = model('User', userSchema);
+const User = model("User", userSchema);
 export default User;
